@@ -1,10 +1,10 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller", 
-    "sap/ui/model/json/JSONModel", 
-    "sap/m/MessageToast", 
-    "sap/ui/model/Filter", 
-    "sap/ui/model/FilterOperator", 
-    "sap/ui/model/Sorter", 
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/model/json/JSONModel",
+    "sap/m/MessageToast",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+    "sap/ui/model/Sorter",
     "sap/m/ViewSettingsItem",
     "sap/ui/core/CustomData",
     "sap/ui/core/Fragment"
@@ -21,6 +21,8 @@ sap.ui.define([
                 inRole: "",
                 inEmail: "",
                 inaddresses: [{ value: "" }],
+                inDob: null,
+                inDos: null,
                 inResultS: "",
                 inIdS: "",
                 inNameS: "",
@@ -32,15 +34,15 @@ sap.ui.define([
 
             var oModel = new JSONModel(oData);
             this.getView().setModel(oModel, "form");
-            
+
             this._mDialogs = {};
         },
 
         onSubmit() {
             var oModel = this.getView().getModel("form");
 
-            if (!oModel.getProperty("/inName") || !oModel.getProperty("/inEmail")) {
-                MessageToast.show("Please fill in all required fields (Name and Email)!");
+            if (!oModel.getProperty("/inName") || !oModel.getProperty("/inEmail")||!oModel.getProperty("/inDob")) {
+                MessageToast.show("Please fill in all required fields (Name, Email, and Date of Birth)!");
                 return;
             }
 
@@ -72,8 +74,11 @@ sap.ui.define([
                 outAge: String(oModel.getProperty("/inAge")),
                 outRole: oModel.getProperty("/inRole"),
                 outEmail: oModel.getProperty("/inEmail"),
-                outAddress: sMergedAddress
+                outAddress: sMergedAddress,
+                outDob: oModel.getProperty("/inDob"),
+                outDos: oModel.getProperty("/inDos")
             });
+
 
             oModel.setProperty("/Table", currentTableData);
 
@@ -83,6 +88,8 @@ sap.ui.define([
             oModel.setProperty("/inEmail", "");
             oModel.setProperty("/inaddresses", [{ value: "" }]);
             oModel.setProperty("/inResult", "Pass");
+            oModel.setProperty("/inDob", null);
+            oModel.setProperty("/inDos", null);
 
             MessageToast.show("Data added successfully!");
         },
@@ -174,7 +181,7 @@ sap.ui.define([
 
             if (mParams.sortItem) {
                 var sPath = mParams.sortItem.getText();
-                
+
                 if (sPath === "Result") { sPath = "outResult"; }
                 else if (sPath === "ID") { sPath = "outId"; }
                 else if (sPath === "Name") { sPath = "outName"; }
