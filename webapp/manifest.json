@@ -1,0 +1,112 @@
+{
+  "_version": "1.84.0",
+  "sap.app": {
+    "id": "fi18n.form",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.24.0",
+      "toolsId": "c932d0fd-b023-42cf-9853-a2bb3e5acfe9"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.148.0",
+      "libs": {
+        "sap.ui.layout": {},
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "fi18n.form.i18n.i18n"
+        }
+      }
+    },
+    "config": {
+      "fullWidth": true,
+      "sample": {
+        "files": [
+          "form.view.xml",
+          "controller/form.controller.js",
+          "view/Dialog.fragment.xml",
+          "view/DialogPreselected.fragment.xml",
+          "view/DialogPreset.fragment.xml",
+          "manifest.json"
+        ]
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "fi18n.form.view",
+        "async": true,
+        "viewPath": "fi18n.form.view"
+      },
+      "routes": [
+        {
+          "name": "Routeform",
+          "pattern": ":?query:",
+          "target": [
+            "Targetform"
+          ]
+        }
+      ],
+      "targets": {
+        "Targetform": {
+          "id": "form",
+          "name": "form"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "fi18n.form.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  }
+}

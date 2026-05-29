@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ViewSettingsDialog
+		title="Preselected Settings"
+		sortDescending="true"
+		groupDescending="true"
+		confirm=".handleConfirm"
+		selectedSortItem="sortItem3">
+		<sortItems>
+			<ViewSettingsItem text="Result" key="1" />
+			<ViewSettingsItem text="Name" key="2" />
+			<ViewSettingsItem id="sortItem3" text="Age" key="3" />
+            <ViewSettingsItem text="Role" key="4" />
+            <ViewSettingsItem text="Email" key="5" />
+		</sortItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

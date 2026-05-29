@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ViewSettingsDialog id="_IDGenViewSettingsDialog1"
+		confirm=".handleConfirm">
+		<sortItems>
+			<ViewSettingsItem id="_IDGenViewSettingsItem" text="ID" key="ID" selected="true" />
+			<ViewSettingsItem id="_IDGenViewSettingsItem1" text="Name" key="Name" />
+			<ViewSettingsItem id="_IDGenViewSettingsItem2" text="Age" key="Age" />
+			<ViewSettingsItem id="_IDGenViewSettingsItem3" text="Role" key="Role" />
+			<ViewSettingsItem id="_IDGenViewSettingsItem4" text="Email" key="Email" />
+		</sortItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>
