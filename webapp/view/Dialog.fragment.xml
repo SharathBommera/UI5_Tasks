@@ -9,6 +9,9 @@
 			<ViewSettingsItem id="_IDGenViewSettingsItem2" text="Age" key="Age" />
 			<ViewSettingsItem id="_IDGenViewSettingsItem3" text="Role" key="Role" />
 			<ViewSettingsItem id="_IDGenViewSettingsItem4" text="Email" key="Email" />
+			<ViewSettingsItem id="_IDGenViewSettingsItem5" text="Address" key="Address" />
+			<ViewSettingsItem id="_IDGenViewSettingsItem6" text="Date of Birth" key="Dob" />
+			<ViewSettingsItem id="_IDGenViewSettingsItem7" text="Date and Time of Submission" key="Dos" />
 		</sortItems>
 	</ViewSettingsDialog>
 </core:FragmentDefinition>

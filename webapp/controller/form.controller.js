@@ -5,10 +5,8 @@ sap.ui.define([
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/model/Sorter",
-    "sap/m/ViewSettingsItem",
-    "sap/ui/core/CustomData",
     "sap/ui/core/Fragment"
-], (Controller, JSONModel, MessageToast, Filter, FilterOperator, Sorter, ViewSettingsItem, CustomData, Fragment) => {
+], (Controller, JSONModel, MessageToast, Filter, FilterOperator, Sorter, Fragment) => {
     "use strict";
 
     return Controller.extend("fi18n.form.controller.form", {
@@ -29,6 +27,9 @@ sap.ui.define([
                 inAgeS: "",
                 inRoleS: "",
                 inEmailS: "",
+                inAdressS: "",
+                inDobS: null,
+                inDosS: null,
                 Table: []
             };
 
@@ -41,7 +42,7 @@ sap.ui.define([
         onSubmit() {
             var oModel = this.getView().getModel("form");
 
-            if (!oModel.getProperty("/inName") || !oModel.getProperty("/inEmail")||!oModel.getProperty("/inDob")) {
+            if (!oModel.getProperty("/inName") || !oModel.getProperty("/inEmail") || !oModel.getProperty("/inDob")) {
                 MessageToast.show("Please fill in all required fields (Name, Email, and Date of Birth)!");
                 return;
             }
@@ -74,11 +75,10 @@ sap.ui.define([
                 outAge: String(oModel.getProperty("/inAge")),
                 outRole: oModel.getProperty("/inRole"),
                 outEmail: oModel.getProperty("/inEmail"),
-                outAddress: sMergedAddress,
+                outAddress: String(sMergedAddress),
                 outDob: oModel.getProperty("/inDob"),
                 outDos: oModel.getProperty("/inDos")
             });
-
 
             oModel.setProperty("/Table", currentTableData);
 
@@ -122,8 +122,10 @@ sap.ui.define([
                 var oFilterRole = new Filter("outRole", FilterOperator.Contains, searchValue);
                 var oFilterEmail = new Filter("outEmail", FilterOperator.Contains, searchValue);
                 var oFilterAddress = new Filter("outAddress", FilterOperator.Contains, searchValue);
+                var oFilterDob = new Filter("outDob", FilterOperator.Contains, searchValue);
+                var oFilterDos = new Filter("outDos", FilterOperator.Contains, searchValue);
 
-                var oMultiFilter = new Filter([oFilterResult, oFilterName, oFilterAge, oFilterRole, oFilterEmail, oFilterAddress], false);
+                var oMultiFilter = new Filter([oFilterResult, oFilterName, oFilterAge, oFilterRole, oFilterEmail, oFilterAddress, oFilterDob, oFilterDos], false);
                 aFilter.push(oMultiFilter);
 
                 MessageToast.show("Searching for: " + searchValue);
@@ -135,6 +137,52 @@ sap.ui.define([
             oBinding.filter(aFilter);
         },
 
+        // onSearchTop: function () {
+        //     var aFilterS = [];
+        //     var oModel = this.getView().getModel("form");
+
+        //     var sId = oModel.getProperty("/inIdS");
+        //     var sName = oModel.getProperty("/inNameS");
+        //     var sAge = oModel.getProperty("/inAgeS");
+        //     var sRole = oModel.getProperty("/inRoleS");
+        //     var sEmail = oModel.getProperty("/inEmailS");
+        //     var sAddress = oModel.getProperty("/inAdressS");
+        //     var sDob = new oModel.getProperty("/inDobS");
+        //     var sDos = new oModel.getProperty("/inDosS");
+        //     console.log("sDob:", sDob);
+        //     console.log("sDos:", sDos);
+
+        //     var aSelectedResults = this.getView().byId("searchResult").getSelectedKeys();
+
+        //     if (aSelectedResults && aSelectedResults.length > 0) {
+        //         var aResultFilters = aSelectedResults.map(function (sKey) {
+        //             return new Filter("outResult", FilterOperator.EQ, sKey);
+        //         });
+
+        //         aFilterS.push(new Filter(aResultFilters, false));
+        //     }
+
+        //     if (sId) { aFilterS.push(new Filter("outId", FilterOperator.Contains, sId)); }
+        //     if (sName) { aFilterS.push(new Filter("outName", FilterOperator.Contains, sName)); }
+        //     if (sAge) { aFilterS.push(new Filter("outAge", FilterOperator.Contains, sAge)); }
+        //     if (sRole) { aFilterS.push(new Filter("outRole", FilterOperator.Contains, sRole)); }
+        //     if (sEmail) { aFilterS.push(new Filter("outEmail", FilterOperator.Contains, sEmail)); }
+        //     if (sAddress) { aFilterS.push(new Filter("outAddress", FilterOperator.Contains, sAddress)); }
+        //     if (sDob) { aFilterS.push(new Filter("outDob", FilterOperator.Contains, sDob)); }
+        //     if (sDos) { aFilterS.push(new Filter("outDos", FilterOperator.Contains, sDos)); }
+
+        //     var oTableS = this.getView().byId("dataTable");
+        //     var oBindingS = oTableS.getBinding("items");
+
+        //     if (aFilterS.length > 0) {
+        //         oBindingS.filter(aFilterS);
+        //         MessageToast.show("Searching With Individual Filters.");
+        //     } else {
+        //         oBindingS.filter([]);
+        //         MessageToast.show("Search cleared. Showing all data.");
+        //     }
+        // },
+
         onSearchTop: function () {
             var aFilterS = [];
             var oModel = this.getView().getModel("form");
@@ -144,6 +192,9 @@ sap.ui.define([
             var sAge = oModel.getProperty("/inAgeS");
             var sRole = oModel.getProperty("/inRoleS");
             var sEmail = oModel.getProperty("/inEmailS");
+            var sAddress = oModel.getProperty("/inAdressS");
+            var oDobDate = oModel.getProperty("/inDobS");
+            var oDosDateTime = oModel.getProperty("/inDosS");
 
             var aSelectedResults = this.getView().byId("searchResult").getSelectedKeys();
 
@@ -151,7 +202,6 @@ sap.ui.define([
                 var aResultFilters = aSelectedResults.map(function (sKey) {
                     return new Filter("outResult", FilterOperator.EQ, sKey);
                 });
-
                 aFilterS.push(new Filter(aResultFilters, false));
             }
 
@@ -160,6 +210,14 @@ sap.ui.define([
             if (sAge) { aFilterS.push(new Filter("outAge", FilterOperator.Contains, sAge)); }
             if (sRole) { aFilterS.push(new Filter("outRole", FilterOperator.Contains, sRole)); }
             if (sEmail) { aFilterS.push(new Filter("outEmail", FilterOperator.Contains, sEmail)); }
+            if (sAddress) { aFilterS.push(new Filter("outAddress", FilterOperator.Contains, sAddress)); }
+            
+            if (oDobDate) { 
+                aFilterS.push(new Filter("outDob", FilterOperator.EQ, oDobDate)); 
+            }
+            if (oDosDateTime) { 
+                aFilterS.push(new Filter("outDos", FilterOperator.EQ, oDosDateTime)); 
+            }
 
             var oTableS = this.getView().byId("dataTable");
             var oBindingS = oTableS.getBinding("items");
@@ -188,6 +246,9 @@ sap.ui.define([
                 else if (sPath === "Age") { sPath = "outAge"; }
                 else if (sPath === "Role") { sPath = "outRole"; }
                 else if (sPath === "Email") { sPath = "outEmail"; }
+                else if (sPath === "Address") { sPath = "outAddress"; }
+                else if (sPath === "Date of Birth") { sPath = "outDob"; }
+                else if (sPath === "Date and Time of Submission") { sPath = "outDos"; }
 
                 var bDescending = mParams.sortDescending;
                 aSorters.push(new Sorter(sPath, bDescending));
