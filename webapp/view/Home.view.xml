@@ -1,0 +1,11 @@
+<mvc:View
+	controllerName="fi18n.form.controller.Home"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+    height="100%">
+	<Page id="_IDGenPage1" title="Home Page" class="sapUiResponsiveContentPadding">
+		<content>
+			<Button id="_IDGenButton4" text="Click to Navigate" class="sapUiTinyMarginEnd"/>
+		</content>
+	</Page>
+</mvc:View>

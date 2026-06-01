@@ -1,7 +1,16 @@
-<mvc:View controllerName="fi18n.form.controller.App"
-    displayBlock="true"
+<mvc:View controllerName="fi18n.form.controller.App" displayBlock="true"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
-    <App id="app">
-    </App>
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout" height="100%" width="100%">
+	<Shell id="_IDGenShell1">
+		<App id="app">
+			<!-- <pages>
+				<Page id="_IDGenPage">
+					<content>
+						<Button id="_IDGenButton4" text="Click to Navigate" class="sapUiTinyMarginEnd"/>
+					</content>
+				</Page>
+			</pages> -->
+		</App>
+	</Shell>
 </mvc:View>

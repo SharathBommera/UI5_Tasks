@@ -58,11 +58,13 @@
       "fullWidth": true,
       "sample": {
         "files": [
+          "App.view.xml",
           "form.view.xml",
           "controller/form.controller.js",
           "view/Dialog.fragment.xml",
           "view/DialogPreselected.fragment.xml",
           "view/DialogPreset.fragment.xml",
+          "RoleValueHelp.fragment.xml",
           "manifest.json"
         ]
       }
@@ -103,7 +105,7 @@
       }
     },
     "rootView": {
-      "viewName": "fi18n.form.view.App",
+      "viewName": "fi18n.form.view.Home",
       "type": "XML",
       "id": "App",
       "async": true
