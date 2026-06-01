@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <SelectDialog
+        id="roleValueHelpDialog"
+        title="Select Role"
+        noDataText="No Roles Found"
+        search=".onRoleValueHelpSearch"
+        confirm=".onRoleValueHelpConfirm"
+        items="{path: 'form>/roles'}">
+        
+        <StandardListItem id="_IDGenStandardListItem" 
+            type="Active"
+            title="{form>name}"
+            description="{form>key}"
+            icon="sap-icon://person-placeholder" />
+    </SelectDialog>
+</core:FragmentDefinition>

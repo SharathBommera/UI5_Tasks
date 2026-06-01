@@ -7,36 +7,7 @@
     xmlns="sap.m" height="100%"
     xmlns:f="sap.f"
     xmlns:fb="sap.ui.comp.filterbar"
-    xmlns:svm="sap.ui.comp.smartvariants"
-    xmlns:mdc="sap.ui.mdc"
-    xmlns:mdcvh="sap.ui.mdc.valuehelp"
-    xmlns:mdcValueHelpContent="sap.ui.mdc.valuehelp.content" core:require="{formatter: 'fi18n/form/model/formatter'}">
-
-    <mvc:dependents>
-            <mdc:ValueHelp id="VH-RoleDialogOnly" delegate='\{"name": "sap/ui/mdc/ValueHelpDelegate", "payload": \{"searchKeys": ["key", "name"]\}\}'>            <mdc:dialog>
-                <mdcvh:Dialog id="VH-RoleDialogOnly-Dialog" title="Select Role">
-                    <mdcValueHelpContent:MTable id="VH-RoleDialogOnly-Dialog-MTable" keyPath="key" descriptionPath="name" caseSensitive="false" useAsValueHelp="true">
-                        <Table id="VH-RoleDialogOnly-Table" items="{path: 'form>/roles'}" mode="SingleSelectMaster">
-                            <columns>
-                                <Column id="VH-RoleDialog-col0" width="3rem">
-                                    <Label id="_IDGenLabel10" text="ID"/>
-                                </Column>
-                                <Column id="VH-RoleDialog-col1" width="10rem">
-                                    <Label id="_IDGenLabel11" text="Role Name"/>
-                                </Column>
-                            </columns>
-                            <items>
-                                <ColumnListItem id="VH-RoleDialog-item" type="Active">
-                                    <Text id="_IDGenText18" text="{path: 'form>key', type:'sap.ui.model.type.String'}"/>
-                                    <Text id="_IDGenText19" text="{path: 'form>name', type:'sap.ui.model.type.String'}"/>
-                                </ColumnListItem>
-                            </items>
-                        </Table>
-                    </mdcValueHelpContent:MTable>
-                </mdcvh:Dialog>
-            </mdc:dialog>
-        </mdc:ValueHelp>
-    </mvc:dependents>
+    xmlns:svm="sap.ui.comp.smartvariants" core:require="{formatter: 'fi18n/form/model/formatter'}">
 
     <f:DynamicPage id="page">
         <f:title>
@@ -63,7 +34,7 @@
 
                             <fb:FilterGroupItem id="_IDGenFilterGroupItem1" name="ID" label="ID" groupName="FormGroup" visibleInFilterBar="true">
                                 <fb:control>
-                                    <Input id="_IDGenInput" value="{form>/inIdS}" />
+                                    <Input id="_IDGenInput" value="{form>/inIdS}" type="Number" />
                                 </fb:control>
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem id="_IDGenFilterGroupItem2" name="Name" label="Name" groupName="FormGroup" visibleInFilterBar="true">
@@ -73,12 +44,12 @@
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem id="_IDGenFilterGroupItem3" name="Age" label="Age" groupName="FormGroup" visibleInFilterBar="true">
                                 <fb:control>
-                                    <Input id="_IDGenInput2" value="{form>/inAgeS}" />
+                                    <Input id="_IDGenInput2" value="{form>/inAgeS}" type="Number" />
                                 </fb:control>
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem id="_IDGenFilterGroupItem4" name="Role" label="Role" groupName="FormGroup" visibleInFilterBar="true">
                                 <fb:control>
-                                    <Input id="_IDGenInput3" value="{form>/inRoleS}" />
+                                    <Input id="_IDGenInput3" value="{form>/inRoleS}" showValueHelp="true" valueHelpRequest=".handleValueHelp" />
                                 </fb:control>
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem id="_IDGenFilterGroupItem5" name="Email" label="Email" groupName="FormGroup" visibleInFilterBar="true">
@@ -116,13 +87,13 @@
                         <Input id="_IDGenInput5" value="{form>/inName}" maxLength="15"/>
 
                         <Label id="_IDGenLabel1" text="Age"/>
-                        <Input id="_IDGenInput6" value="{form>/inAge}" maxLength="2" />
+                        <Input id="_IDGenInput6" value="{form>/inAge}" maxLength="2" type="Number" />
 
                         <Label id="_IDGenLabel2" text="Role"/>
-                        <mdc:Field id="F-Role" value="{path: 'form>/inRoleSelected', type: 'sap.ui.model.type.String'}" editMode="Editable" display="Description" valueHelp="VH-RoleDialogOnly"/>
+                        <Input id="F-Role" value="{form>/inRoleSelected}" showValueHelp="true" valueHelpRequest=".handleValueHelp"/>
 
-                        <Label id="L-CustomRole" text="Specify New Role" visible="{= ${form>/inRoleSelected} === 'OTH' }" />
-                        <mdc:Field id="F-CustomRole" value="{path: 'form>/inRoleCustom', type: 'sap.ui.model.type.String'}" editMode="Editable" visible="{= ${form>/inRoleSelected} === 'OTH' }" />
+                        <Label id="L-CustomRole" text="Specify New Role" visible="{= ${form>/inRoleSelected} === 'Others' }" />
+                        <Input id="F-CustomRole" value="{form>/inRoleCustom}" visible="{= ${form>/inRoleSelected} === 'Others' }" />
 
                         <Label id="_IDGenLabel3" required="true" text="Email"/>
                         <Input id="_IDGenInput8" value="{form>/inEmail}" maxLength="15" type="Email"/>
@@ -205,22 +176,13 @@
                                     <Text id="_IDGenText11" text="{form>outRole}" />
                                     <Text id="_IDGenText12" text="{form>outEmail}" />
                                     <Text id="_IDGenText13" text="{form>outAddress}" wrapping="true" />
-
-                                    <Text id="_IDGenText14" text="{
-                                        path: 'form>outDob',
-                                        formatter: 'formatter.formatDate'
-                                    }" />
-                                    <Text id="_IDGenText17" text="{
-                                        path: 'form>outDos',
-                                        formatter: 'formatter.formatDateTime'
-                                    }" />
+                                    <Text id="_IDGenText14" text="{path: 'form>outDob', formatter: 'formatter.formatDate'}" />
+                                    <Text id="_IDGenText17" text="{path: 'form>outDos', formatter: 'formatter.formatDateTime'}" />
                                 </cells>
                             </ColumnListItem>
                         </items>
                     </Table>
-
                 </VBox>
-
             </VBox>
         </f:content>
     </f:DynamicPage>

@@ -16,13 +16,12 @@ sap.ui.define([
                 inResult: "Pass",
                 inName: "",
                 inAge: "",
-                inRoleSelected: "", 
-                inRoleCustom: "", 
+                inRoleSelected: "",
+                inRoleCustom: "",
                 inEmail: "",
                 inaddresses: [{ value: "" }],
                 inDob: null,
                 inDos: null,
-
                 inResultS: "",
                 inIdS: "",
                 inNameS: "",
@@ -32,33 +31,30 @@ sap.ui.define([
                 inAdressS: "",
                 inDobS: null,
                 inDosS: null,
-
                 roles: [
                     { key: "DEV", name: "Developer" },
                     { key: "MGR", name: "Manager" },
-                    { key: "QA",  name: "Quality Analyst" },
-                    { key: "UX",  name: "UX/UI Designer" },
-                    { key: "HR",  name: "HR Specialist" },
+                    { key: "QA", name: "Quality Analyst" },
+                    { key: "UX", name: "UX/UI Designer" },
+                    { key: "HR", name: "HR Specialist" },
                     { key: "OTH", name: "Others" }
                 ],
-
                 Table: [
-                    { outResult: "Pass", outId: "1", outName: "Arjun Reddy", outAge: "24", outRole: "Developer", outEmail: "arjun.r@test.com", outAddress: "Hitech City\nHyderabad", outDob: new Date(1999, 10, 15), outDos: new Date(2026, 0, 10, 10, 30, 0) },
-                    { outResult: "Fail", outId: "2", outName: "Sarah Connor", outAge: "35", outRole: "Manager", outEmail: "s.connor@test.com", outAddress: "404 Tech Lane\nBangalore", outDob: new Date(1989, 4, 12), outDos: new Date(2026, 1, 14, 14, 45, 0) },
-                    { outResult: "Pass", outId: "3", outName: "Vikram Singh", outAge: "28", outRole: "Quality Analyst", outEmail: "vik.singh@test.com", outAddress: "Gachibowli\nHyderabad", outDob: new Date(1996, 2, 8), outDos: new Date(2026, 2, 2, 9, 15, 0) },
-                    { outResult: "Pass", outId: "4", outName: "Emily Chen", outAge: "26", outRole: "UX/UI Designer", outEmail: "echen@test.com", outAddress: "101 Art Ave\nPune", outDob: new Date(1998, 7, 21), outDos: new Date(2026, 2, 10, 11, 0, 0) },
-                    { outResult: "Fail", outId: "5", outName: "James Holden", outAge: "32", outRole: "System Admin", outEmail: "j.holden@test.com", outAddress: "Sector 5\nNoida", outDob: new Date(1992, 11, 5), outDos: new Date(2026, 3, 5, 16, 20, 0) },
-                    { outResult: "Pass", outId: "6", outName: "Anita Desai", outAge: "29", outRole: "HR Specialist", outEmail: "anita.d@test.com", outAddress: "Bandra West\nMumbai", outDob: new Date(1995, 6, 30), outDos: new Date(2026, 3, 18, 10, 5, 0) },
-                    { outResult: "Fail", outId: "7", outName: "Rahul Sharma", outAge: "23", outRole: "Intern", outEmail: "rahul.s@test.com", outAddress: "MG Road\nDelhi", outDob: new Date(2001, 1, 14), outDos: new Date(2026, 4, 1, 8, 30, 0) },
-                    { outResult: "Pass", outId: "8", outName: "Linda Park", outAge: "41", outRole: "Scrum Master", outEmail: "lpark@test.com", outAddress: "Silicon Park\nChennai", outDob: new Date(1983, 8, 22), outDos: new Date(2026, 4, 15, 13, 10, 0) },
-                    { outResult: "Pass", outId: "9", outName: "Omar Farooq", outAge: "27", outRole: "Developer", outEmail: "omar.f@test.com", outAddress: "Jubilee Hills\nHyderabad", outDob: new Date(1997, 3, 10), outDos: new Date(2026, 5, 1, 15, 55, 0) },
-                    { outResult: "Pass", outId: "10", outName: "Maria Garcia", outAge: "30", outRole: "Data Scientist", outEmail: "maria.g@test.com", outAddress: "Whitefield\nBangalore", outDob: new Date(1994, 9, 5), outDos: new Date(2026, 5, 12, 17, 40, 0) }
+                    { outResult: "Pass", outId: 1, outName: "Arjun Reddy", outAge: 24, outRole: "Developer", outEmail: "arjun.r@test.com", outAddress: "Hitech City\nHyderabad", outDob: new Date(1999, 10, 15), outDos: new Date(2026, 0, 10, 10, 30, 0) },
+                    { outResult: "Fail", outId: 2, outName: "Sarah Connor", outAge: 35, outRole: "Manager", outEmail: "s.connor@test.com", outAddress: "404 Tech Lane\nBangalore", outDob: new Date(1989, 4, 12), outDos: new Date(2026, 1, 14, 14, 45, 0) },
+                    { outResult: "Pass", outId: 3, outName: "Vikram Singh", outAge: 28, outRole: "Quality Analyst", outEmail: "vik.singh@test.com", outAddress: "Gachibowli\nHyderabad", outDob: new Date(1996, 2, 8), outDos: new Date(2026, 2, 2, 9, 15, 0) },
+                    { outResult: "Pass", outId: 4, outName: "Emily Chen", outAge: 26, outRole: "UX/UI Designer", outEmail: "echen@test.com", outAddress: "101 Art Ave\nPune", outDob: new Date(1998, 7, 21), outDos: new Date(2026, 2, 10, 11, 0, 0) },
+                    { outResult: "Fail", outId: 5, outName: "James Holden", outAge: 32, outRole: "System Admin", outEmail: "j.holden@test.com", outAddress: "Sector 5\nNoida", outDob: new Date(1992, 11, 5), outDos: new Date(2026, 3, 5, 16, 20, 0) },
+                    { outResult: "Pass", outId: 6, outName: "Anita Desai", outAge: 29, outRole: "HR Specialist", outEmail: "anita.d@test.com", outAddress: "Bandra West\nMumbai", outDob: new Date(1995, 6, 30), outDos: new Date(2026, 3, 18, 10, 5, 0) },
+                    { outResult: "Fail", outId: 7, outName: "Rahul Sharma", outAge: 23, outRole: "Intern", outEmail: "rahul.s@test.com", outAddress: "MG Road\nDelhi", outDob: new Date(2001, 1, 14), outDos: new Date(2026, 4, 1, 8, 30, 0) },
+                    { outResult: "Pass", outId: 8, outName: "Linda Park", outAge: 41, outRole: "Scrum Master", outEmail: "lpark@test.com", outAddress: "Silicon Park\nChennai", outDob: new Date(1983, 8, 22), outDos: new Date(2026, 4, 15, 13, 10, 0) },
+                    { outResult: "Pass", outId: 9, outName: "Omar Farooq", outAge: 27, outRole: "Developer", outEmail: "omar.f@test.com", outAddress: "Jubilee Hills\nHyderabad", outDob: new Date(1997, 3, 10), outDos: new Date(2026, 5, 1, 15, 55, 0) },
+                    { outResult: "Pass", outId: 10, outName: "Maria Garcia", outAge: 30, outRole: "Data Scientist", outEmail: "maria.g@test.com", outAddress: "Whitefield\nBangalore", outDob: new Date(1994, 9, 5), outDos: new Date(2026, 5, 12, 17, 40, 0) }
                 ]
             };
 
             var oModel = new JSONModel(oData);
             this.getView().setModel(oModel, "form");
-
             this._mDialogs = {};
         },
 
@@ -80,23 +76,12 @@ sap.ui.define([
                 return;
             }
 
-
-            var sFinalRole = "";
-            var sRoleKey = oModel.getProperty("/inRoleSelected");
-            
-            if (sRoleKey === "OTH") {
+            var sFinalRole = oModel.getProperty("/inRoleSelected");
+            if (sFinalRole === "Others") {
                 sFinalRole = oModel.getProperty("/inRoleCustom");
                 if (!sFinalRole || sFinalRole.trim() === "") {
                     MessageToast.show("Please specify your custom role!");
                     return;
-                }
-            } else {
-                var aRoles = oModel.getProperty("/roles");
-                var oFoundRole = aRoles.find(function(role) { return role.key === sRoleKey; });
-                if (oFoundRole) {
-                    sFinalRole = oFoundRole.name;
-                } else {
-                    sFinalRole = sRoleKey; 
                 }
             }
 
@@ -108,14 +93,14 @@ sap.ui.define([
             });
             var sMergedAddress = aValidTexts.join("\n");
 
-            var id = oModel.getProperty("/Table").length + 1; 
+            var id = oModel.getProperty("/Table").length + 1;
             var currentTableData = oModel.getProperty("/Table");
 
             currentTableData.push({
                 outResult: oModel.getProperty("/inResult"),
-                outId: String(id),
+                outId: id,
                 outName: oModel.getProperty("/inName"),
-                outAge: String(oModel.getProperty("/inAge")),
+                outAge: parseInt(oModel.getProperty("/inAge"), 10),
                 outRole: sFinalRole,
                 outEmail: oModel.getProperty("/inEmail"),
                 outAddress: String(sMergedAddress),
@@ -138,11 +123,47 @@ sap.ui.define([
             MessageToast.show("Data added successfully!");
         },
 
-        onAddAddress: function () {
+        handleValueHelp: function (oEvent) {
+            var oView = this.getView();
+            this._sValueHelpTriggerId = oEvent.getSource().getId();
+
+            if (!this._oRoleValueHelpDialog) {
+                Fragment.load({
+                    id: oView.getId(),
+                    name: "fi18n.form.view.RoleValueHelp",
+                    controller: this
+                }).then(function (oDialog) {
+                    this._oRoleValueHelpDialog = oDialog;
+                    oView.addDependent(this._oRoleValueHelpDialog);
+                    this._oRoleValueHelpDialog.open();
+                }.bind(this));
+
+            } else {
+                this._oRoleValueHelpDialog.open();
+            }
+        },
+
+        onRoleValueHelpSearch: function (oEvent) {
+            var sValue = oEvent.getParameter("value");
+            var oFilter = new Filter("name", FilterOperator.Contains, sValue);
+            oEvent.getSource().getBinding("items").filter([oFilter]);
+        },
+
+        onRoleValueHelpConfirm: function (oEvent) {
+            var oSelectedItem = oEvent.getParameter("selectedItem");
             var oModel = this.getView().getModel("form");
-            var aAddresses = oModel.getProperty("/inaddresses");
-            aAddresses.push({ value: "" });
-            oModel.setProperty("/inaddresses", aAddresses);
+ 
+            if (oSelectedItem) {
+                var oContext = oSelectedItem.getBindingContext("form");
+                var sRoleName = oContext.getProperty("name"); 
+                
+                if (this._sValueHelpTriggerId && this._sValueHelpTriggerId.includes("inInput3")) {
+                    oModel.setProperty("/inRoleS", sRoleName);
+                } else {
+                    oModel.setProperty("/inRoleSelected", sRoleName);
+                }
+            }
+            oEvent.getSource().getBinding("items").filter([]);
         },
 
         onRemoveAddress: function (oEvent) {
@@ -157,23 +178,38 @@ sap.ui.define([
         onSearch: function (event) {
             var aFilter = [];
             var searchValue = event.getParameter("query");
+
             if (searchValue && searchValue.length > 0) {
                 var oFilterResult = new Filter("outResult", FilterOperator.Contains, searchValue);
                 var oFilterName = new Filter("outName", FilterOperator.Contains, searchValue);
-                var oFilterAge = new Filter("outAge", FilterOperator.Contains, searchValue);
                 var oFilterRole = new Filter("outRole", FilterOperator.Contains, searchValue);
                 var oFilterEmail = new Filter("outEmail", FilterOperator.Contains, searchValue);
                 var oFilterAddress = new Filter("outAddress", FilterOperator.Contains, searchValue);
-                var oFilterDob = new Filter("outDob", FilterOperator.Contains, searchValue);
-                var oFilterDos = new Filter("outDos", FilterOperator.Contains, searchValue);
 
-                var oMultiFilter = new Filter([oFilterResult, oFilterName, oFilterAge, oFilterRole, oFilterEmail, oFilterAddress, oFilterDob, oFilterDos], false);
+                var oMultiFilter;
+
+                if (!isNaN(searchValue)) {
+                    var iNumValue = parseInt(searchValue, 10);
+                    var oFilterId = new Filter("outId", FilterOperator.EQ, iNumValue);
+                    var oFilterAge = new Filter("outAge", FilterOperator.EQ, iNumValue);
+
+                    oMultiFilter = new Filter([
+                        oFilterResult, oFilterName, oFilterId, oFilterAge,
+                        oFilterRole, oFilterEmail, oFilterAddress
+                    ], false);
+                } else {
+                    oMultiFilter = new Filter([
+                        oFilterResult, oFilterName, oFilterRole,
+                        oFilterEmail, oFilterAddress
+                    ], false);
+                }
+
                 aFilter.push(oMultiFilter);
-
                 MessageToast.show("Searching for: " + searchValue);
             } else {
                 MessageToast.show("Search cleared. Showing all data.");
             }
+
             var oTable = this.getView().byId("dataTable");
             var oBinding = oTable.getBinding("items");
             oBinding.filter(aFilter);
@@ -201,19 +237,16 @@ sap.ui.define([
                 aFilterS.push(new Filter(aResultFilters, false));
             }
 
-            if (sId) { aFilterS.push(new Filter("outId", FilterOperator.Contains, sId)); }
+            if (sId) { aFilterS.push(new Filter("outId", FilterOperator.EQ, parseInt(sId, 10))); }
+            if (sAge) { aFilterS.push(new Filter("outAge", FilterOperator.EQ, parseInt(sAge, 10))); }
+
             if (sName) { aFilterS.push(new Filter("outName", FilterOperator.Contains, sName)); }
-            if (sAge) { aFilterS.push(new Filter("outAge", FilterOperator.Contains, sAge)); }
             if (sRole) { aFilterS.push(new Filter("outRole", FilterOperator.Contains, sRole)); }
             if (sEmail) { aFilterS.push(new Filter("outEmail", FilterOperator.Contains, sEmail)); }
             if (sAddress) { aFilterS.push(new Filter("outAddress", FilterOperator.Contains, sAddress)); }
-            
-            if (oDobDate) { 
-                aFilterS.push(new Filter("outDob", FilterOperator.EQ, oDobDate)); 
-            }
-            if (oDosDateTime) { 
-                aFilterS.push(new Filter("outDos", FilterOperator.EQ, oDosDateTime)); 
-            }
+
+            if (oDobDate) { aFilterS.push(new Filter("outDob", FilterOperator.EQ, oDobDate)); }
+            if (oDosDateTime) { aFilterS.push(new Filter("outDos", FilterOperator.EQ, oDosDateTime)); }
 
             var oTableS = this.getView().byId("dataTable");
             var oBindingS = oTableS.getBinding("items");
@@ -273,20 +306,9 @@ sap.ui.define([
             });
         },
 
-        handleOpenDialog: function () {
-            this._openDialog("Dialog");
-        },
-
-        handleOpenDialogFilter: function () {
-            this._openDialog("Dialog", "filter");
-        },
-
-        handleOpenDialogFilterPreselected: function () {
-            this._openDialog("DialogPreselected", "filter");
-        },
-
-        handleOpenDialogPresetFilterItems: function () {
-            this._openDialog("DialogPreset", "filter", this._presetFiltersInit);
-        }
+        handleOpenDialog: function () { this._openDialog("Dialog"); },
+        handleOpenDialogFilter: function () { this._openDialog("Dialog", "filter"); },
+        handleOpenDialogFilterPreselected: function () { this._openDialog("DialogPreselected", "filter"); },
+        handleOpenDialogPresetFilterItems: function () { this._openDialog("DialogPreset", "filter", this._presetFiltersInit); }
     });
 });
