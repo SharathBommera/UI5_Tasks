@@ -16,11 +16,13 @@ sap.ui.define([
                 inResult: "Pass",
                 inName: "",
                 inAge: "",
-                inRole: "",
+                inRoleSelected: "", 
+                inRoleCustom: "", 
                 inEmail: "",
                 inaddresses: [{ value: "" }],
                 inDob: null,
                 inDos: null,
+
                 inResultS: "",
                 inIdS: "",
                 inNameS: "",
@@ -30,7 +32,28 @@ sap.ui.define([
                 inAdressS: "",
                 inDobS: null,
                 inDosS: null,
-                Table: []
+
+                roles: [
+                    { key: "DEV", name: "Developer" },
+                    { key: "MGR", name: "Manager" },
+                    { key: "QA",  name: "Quality Analyst" },
+                    { key: "UX",  name: "UX/UI Designer" },
+                    { key: "HR",  name: "HR Specialist" },
+                    { key: "OTH", name: "Others" }
+                ],
+
+                Table: [
+                    { outResult: "Pass", outId: "1", outName: "Arjun Reddy", outAge: "24", outRole: "Developer", outEmail: "arjun.r@test.com", outAddress: "Hitech City\nHyderabad", outDob: new Date(1999, 10, 15), outDos: new Date(2026, 0, 10, 10, 30, 0) },
+                    { outResult: "Fail", outId: "2", outName: "Sarah Connor", outAge: "35", outRole: "Manager", outEmail: "s.connor@test.com", outAddress: "404 Tech Lane\nBangalore", outDob: new Date(1989, 4, 12), outDos: new Date(2026, 1, 14, 14, 45, 0) },
+                    { outResult: "Pass", outId: "3", outName: "Vikram Singh", outAge: "28", outRole: "Quality Analyst", outEmail: "vik.singh@test.com", outAddress: "Gachibowli\nHyderabad", outDob: new Date(1996, 2, 8), outDos: new Date(2026, 2, 2, 9, 15, 0) },
+                    { outResult: "Pass", outId: "4", outName: "Emily Chen", outAge: "26", outRole: "UX/UI Designer", outEmail: "echen@test.com", outAddress: "101 Art Ave\nPune", outDob: new Date(1998, 7, 21), outDos: new Date(2026, 2, 10, 11, 0, 0) },
+                    { outResult: "Fail", outId: "5", outName: "James Holden", outAge: "32", outRole: "System Admin", outEmail: "j.holden@test.com", outAddress: "Sector 5\nNoida", outDob: new Date(1992, 11, 5), outDos: new Date(2026, 3, 5, 16, 20, 0) },
+                    { outResult: "Pass", outId: "6", outName: "Anita Desai", outAge: "29", outRole: "HR Specialist", outEmail: "anita.d@test.com", outAddress: "Bandra West\nMumbai", outDob: new Date(1995, 6, 30), outDos: new Date(2026, 3, 18, 10, 5, 0) },
+                    { outResult: "Fail", outId: "7", outName: "Rahul Sharma", outAge: "23", outRole: "Intern", outEmail: "rahul.s@test.com", outAddress: "MG Road\nDelhi", outDob: new Date(2001, 1, 14), outDos: new Date(2026, 4, 1, 8, 30, 0) },
+                    { outResult: "Pass", outId: "8", outName: "Linda Park", outAge: "41", outRole: "Scrum Master", outEmail: "lpark@test.com", outAddress: "Silicon Park\nChennai", outDob: new Date(1983, 8, 22), outDos: new Date(2026, 4, 15, 13, 10, 0) },
+                    { outResult: "Pass", outId: "9", outName: "Omar Farooq", outAge: "27", outRole: "Developer", outEmail: "omar.f@test.com", outAddress: "Jubilee Hills\nHyderabad", outDob: new Date(1997, 3, 10), outDos: new Date(2026, 5, 1, 15, 55, 0) },
+                    { outResult: "Pass", outId: "10", outName: "Maria Garcia", outAge: "30", outRole: "Data Scientist", outEmail: "maria.g@test.com", outAddress: "Whitefield\nBangalore", outDob: new Date(1994, 9, 5), outDos: new Date(2026, 5, 12, 17, 40, 0) }
+                ]
             };
 
             var oModel = new JSONModel(oData);
@@ -57,6 +80,26 @@ sap.ui.define([
                 return;
             }
 
+
+            var sFinalRole = "";
+            var sRoleKey = oModel.getProperty("/inRoleSelected");
+            
+            if (sRoleKey === "OTH") {
+                sFinalRole = oModel.getProperty("/inRoleCustom");
+                if (!sFinalRole || sFinalRole.trim() === "") {
+                    MessageToast.show("Please specify your custom role!");
+                    return;
+                }
+            } else {
+                var aRoles = oModel.getProperty("/roles");
+                var oFoundRole = aRoles.find(function(role) { return role.key === sRoleKey; });
+                if (oFoundRole) {
+                    sFinalRole = oFoundRole.name;
+                } else {
+                    sFinalRole = sRoleKey; 
+                }
+            }
+
             var aAllAddresses = oModel.getProperty("/inaddresses") || [];
             var aValidTexts = aAllAddresses.map(function (item) {
                 return item.value;
@@ -65,7 +108,7 @@ sap.ui.define([
             });
             var sMergedAddress = aValidTexts.join("\n");
 
-            var id = oModel.getProperty("/Table").length + 1;
+            var id = oModel.getProperty("/Table").length + 1; 
             var currentTableData = oModel.getProperty("/Table");
 
             currentTableData.push({
@@ -73,7 +116,7 @@ sap.ui.define([
                 outId: String(id),
                 outName: oModel.getProperty("/inName"),
                 outAge: String(oModel.getProperty("/inAge")),
-                outRole: oModel.getProperty("/inRole"),
+                outRole: sFinalRole,
                 outEmail: oModel.getProperty("/inEmail"),
                 outAddress: String(sMergedAddress),
                 outDob: oModel.getProperty("/inDob"),
@@ -84,7 +127,8 @@ sap.ui.define([
 
             oModel.setProperty("/inName", "");
             oModel.setProperty("/inAge", "");
-            oModel.setProperty("/inRole", "");
+            oModel.setProperty("/inRoleSelected", "");
+            oModel.setProperty("/inRoleCustom", "");
             oModel.setProperty("/inEmail", "");
             oModel.setProperty("/inaddresses", [{ value: "" }]);
             oModel.setProperty("/inResult", "Pass");
@@ -97,7 +141,6 @@ sap.ui.define([
         onAddAddress: function () {
             var oModel = this.getView().getModel("form");
             var aAddresses = oModel.getProperty("/inaddresses");
-
             aAddresses.push({ value: "" });
             oModel.setProperty("/inaddresses", aAddresses);
         },
@@ -106,7 +149,6 @@ sap.ui.define([
             var oModel = this.getView().getModel("form");
             var sPath = oEvent.getSource().getBindingContext("form").getPath();
             var i = parseInt(sPath.split("/").pop(), 10);
-
             var aAddresses = oModel.getProperty("/inaddresses");
             aAddresses.splice(i, 1);
             oModel.setProperty("/inaddresses", aAddresses);
@@ -136,52 +178,6 @@ sap.ui.define([
             var oBinding = oTable.getBinding("items");
             oBinding.filter(aFilter);
         },
-
-        // onSearchTop: function () {
-        //     var aFilterS = [];
-        //     var oModel = this.getView().getModel("form");
-
-        //     var sId = oModel.getProperty("/inIdS");
-        //     var sName = oModel.getProperty("/inNameS");
-        //     var sAge = oModel.getProperty("/inAgeS");
-        //     var sRole = oModel.getProperty("/inRoleS");
-        //     var sEmail = oModel.getProperty("/inEmailS");
-        //     var sAddress = oModel.getProperty("/inAdressS");
-        //     var sDob = new oModel.getProperty("/inDobS");
-        //     var sDos = new oModel.getProperty("/inDosS");
-        //     console.log("sDob:", sDob);
-        //     console.log("sDos:", sDos);
-
-        //     var aSelectedResults = this.getView().byId("searchResult").getSelectedKeys();
-
-        //     if (aSelectedResults && aSelectedResults.length > 0) {
-        //         var aResultFilters = aSelectedResults.map(function (sKey) {
-        //             return new Filter("outResult", FilterOperator.EQ, sKey);
-        //         });
-
-        //         aFilterS.push(new Filter(aResultFilters, false));
-        //     }
-
-        //     if (sId) { aFilterS.push(new Filter("outId", FilterOperator.Contains, sId)); }
-        //     if (sName) { aFilterS.push(new Filter("outName", FilterOperator.Contains, sName)); }
-        //     if (sAge) { aFilterS.push(new Filter("outAge", FilterOperator.Contains, sAge)); }
-        //     if (sRole) { aFilterS.push(new Filter("outRole", FilterOperator.Contains, sRole)); }
-        //     if (sEmail) { aFilterS.push(new Filter("outEmail", FilterOperator.Contains, sEmail)); }
-        //     if (sAddress) { aFilterS.push(new Filter("outAddress", FilterOperator.Contains, sAddress)); }
-        //     if (sDob) { aFilterS.push(new Filter("outDob", FilterOperator.Contains, sDob)); }
-        //     if (sDos) { aFilterS.push(new Filter("outDos", FilterOperator.Contains, sDos)); }
-
-        //     var oTableS = this.getView().byId("dataTable");
-        //     var oBindingS = oTableS.getBinding("items");
-
-        //     if (aFilterS.length > 0) {
-        //         oBindingS.filter(aFilterS);
-        //         MessageToast.show("Searching With Individual Filters.");
-        //     } else {
-        //         oBindingS.filter([]);
-        //         MessageToast.show("Search cleared. Showing all data.");
-        //     }
-        // },
 
         onSearchTop: function () {
             var aFilterS = [];
@@ -253,7 +249,6 @@ sap.ui.define([
                 var bDescending = mParams.sortDescending;
                 aSorters.push(new Sorter(sPath, bDescending));
             }
-
             oBinding.sort(aSorters);
         },
 
@@ -293,6 +288,5 @@ sap.ui.define([
         handleOpenDialogPresetFilterItems: function () {
             this._openDialog("DialogPreset", "filter", this._presetFiltersInit);
         }
-
     });
 });

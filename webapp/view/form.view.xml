@@ -7,8 +7,37 @@
     xmlns="sap.m" height="100%"
     xmlns:f="sap.f"
     xmlns:fb="sap.ui.comp.filterbar"
-    xmlns:svm="sap.ui.comp.smartvariants" 
-    core:require="{formatter: 'fi18n/form/model/formatter'}"> 
+    xmlns:svm="sap.ui.comp.smartvariants"
+    xmlns:mdc="sap.ui.mdc"
+    xmlns:mdcvh="sap.ui.mdc.valuehelp"
+    xmlns:mdcValueHelpContent="sap.ui.mdc.valuehelp.content" core:require="{formatter: 'fi18n/form/model/formatter'}">
+
+    <mvc:dependents>
+            <mdc:ValueHelp id="VH-RoleDialogOnly" delegate='\{"name": "sap/ui/mdc/ValueHelpDelegate", "payload": \{"searchKeys": ["key", "name"]\}\}'>            <mdc:dialog>
+                <mdcvh:Dialog id="VH-RoleDialogOnly-Dialog" title="Select Role">
+                    <mdcValueHelpContent:MTable id="VH-RoleDialogOnly-Dialog-MTable" keyPath="key" descriptionPath="name" caseSensitive="false" useAsValueHelp="true">
+                        <Table id="VH-RoleDialogOnly-Table" items="{path: 'form>/roles'}" mode="SingleSelectMaster">
+                            <columns>
+                                <Column id="VH-RoleDialog-col0" width="3rem">
+                                    <Label id="_IDGenLabel10" text="ID"/>
+                                </Column>
+                                <Column id="VH-RoleDialog-col1" width="10rem">
+                                    <Label id="_IDGenLabel11" text="Role Name"/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem id="VH-RoleDialog-item" type="Active">
+                                    <Text id="_IDGenText18" text="{path: 'form>key', type:'sap.ui.model.type.String'}"/>
+                                    <Text id="_IDGenText19" text="{path: 'form>name', type:'sap.ui.model.type.String'}"/>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </mdcValueHelpContent:MTable>
+                </mdcvh:Dialog>
+            </mdc:dialog>
+        </mdc:ValueHelp>
+    </mvc:dependents>
+
     <f:DynamicPage id="page">
         <f:title>
             <f:DynamicPageTitle id="_IDGenDynamicPageTitle1">
@@ -90,7 +119,10 @@
                         <Input id="_IDGenInput6" value="{form>/inAge}" maxLength="2" />
 
                         <Label id="_IDGenLabel2" text="Role"/>
-                        <Input id="_IDGenInput7" value="{form>/inRole}" maxLength="5"/>
+                        <mdc:Field id="F-Role" value="{path: 'form>/inRoleSelected', type: 'sap.ui.model.type.String'}" editMode="Editable" display="Description" valueHelp="VH-RoleDialogOnly"/>
+
+                        <Label id="L-CustomRole" text="Specify New Role" visible="{= ${form>/inRoleSelected} === 'OTH' }" />
+                        <mdc:Field id="F-CustomRole" value="{path: 'form>/inRoleCustom', type: 'sap.ui.model.type.String'}" editMode="Editable" visible="{= ${form>/inRoleSelected} === 'OTH' }" />
 
                         <Label id="_IDGenLabel3" required="true" text="Email"/>
                         <Input id="_IDGenInput8" value="{form>/inEmail}" maxLength="15" type="Email"/>
@@ -109,8 +141,6 @@
                         </VBox>
 
                         <Label id="_IDGenLabel7" text="Date of Birth"/>
-                        <!-- <DatePicker id="_IDGenDatePicker_Dos" value="{form>/inDob}" displayFormat="dd-MMM-yyyy" valueFormat="dd-MMM-yyyy" /> -->
-
                         <DatePicker id="_IDGenDatePicker_Dob" value="{path: 'form>/inDob', type: 'sap.ui.model.type.Date'}" displayFormat="dd-MMM-yyyy" />
 
                         <Label id="_IDGenLabel5" text="Result"/>
@@ -120,8 +150,6 @@
                         </Select>
 
                         <Label id="_IDGenLabel8" text="Date and Time of Submission"/>
-                        <!-- <DateTimePicker id="_IDGenDatePicker_Dos" value="{form>/inDos}" displayFormat="dd/MM/yyyy HH:mm:ss" valueFormat="dd/mm/yyyy','HH:mm:ss" /> -->
-
                         <DateTimePicker id="_IDGenDatePicker_Dos" value="{path: 'form>/inDos', type: 'sap.ui.model.type.DateTime'}" displayFormat="dd/MM/yyyy HH:mm:ss" />
 
                         <Label id="_IDGenLabel6" />
@@ -139,15 +167,33 @@
 
                     <Table items="{form>/Table}" id="dataTable">
                         <columns>
-                            <Column id="_IDGenColumn"><Text id="_IDGenText1" text="Result" /></Column>
-                            <Column id="_IDGenColumn1"><Text id="_IDGenText2" text="ID" /></Column>
-                            <Column id="_IDGenColumn2"><Text id="_IDGenText3" text="Name" /></Column>
-                            <Column id="_IDGenColumn3"><Text id="_IDGenText4" text="Age" /></Column>
-                            <Column id="_IDGenColumn4"><Text id="_IDGenText5" text="Role" /></Column>
-                            <Column id="_IDGenColumn5"><Text id="_IDGenText6" text="Email" /></Column>
-                            <Column id="_IDGenColumn6"><Text id="_IDGenText7" text="Address" /></Column>
-                            <Column id="_IDGenColumn7"><Text id="_IDGenText15" text="Date of Birth" /></Column>
-                            <Column id="_IDGenColumn8"><Text id="_IDGenText16" text="Date and Time of Submission" /></Column>
+                            <Column id="_IDGenColumn">
+                                <Text id="_IDGenText1" text="Result" />
+                            </Column>
+                            <Column id="_IDGenColumn1">
+                                <Text id="_IDGenText2" text="ID" />
+                            </Column>
+                            <Column id="_IDGenColumn2">
+                                <Text id="_IDGenText3" text="Name" />
+                            </Column>
+                            <Column id="_IDGenColumn3">
+                                <Text id="_IDGenText4" text="Age" />
+                            </Column>
+                            <Column id="_IDGenColumn4">
+                                <Text id="_IDGenText5" text="Role" />
+                            </Column>
+                            <Column id="_IDGenColumn5">
+                                <Text id="_IDGenText6" text="Email" />
+                            </Column>
+                            <Column id="_IDGenColumn6">
+                                <Text id="_IDGenText7" text="Address" />
+                            </Column>
+                            <Column id="_IDGenColumn7">
+                                <Text id="_IDGenText15" text="Date of Birth" />
+                            </Column>
+                            <Column id="_IDGenColumn8">
+                                <Text id="_IDGenText16" text="Date and Time of Submission" />
+                            </Column>
                         </columns>
                         <items>
                             <ColumnListItem id="_IDGenColumnListItem">
@@ -159,7 +205,7 @@
                                     <Text id="_IDGenText11" text="{form>outRole}" />
                                     <Text id="_IDGenText12" text="{form>outEmail}" />
                                     <Text id="_IDGenText13" text="{form>outAddress}" wrapping="true" />
-                                    
+
                                     <Text id="_IDGenText14" text="{
                                         path: 'form>outDob',
                                         formatter: 'formatter.formatDate'
