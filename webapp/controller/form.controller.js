@@ -50,12 +50,15 @@ sap.ui.define([
                     { outResult: "Pass", outId: 8, outName: "Linda Park", outAge: 41, outRole: "Scrum Master", outEmail: "lpark@test.com", outAddress: "Silicon Park\nChennai", outDob: new Date(1983, 8, 22), outDos: new Date(2026, 4, 15, 13, 10, 0) },
                     { outResult: "Pass", outId: 9, outName: "Omar Farooq", outAge: 27, outRole: "Developer", outEmail: "omar.f@test.com", outAddress: "Jubilee Hills\nHyderabad", outDob: new Date(1997, 3, 10), outDos: new Date(2026, 5, 1, 15, 55, 0) },
                     { outResult: "Pass", outId: 10, outName: "Maria Garcia", outAge: 30, outRole: "Data Scientist", outEmail: "maria.g@test.com", outAddress: "Whitefield\nBangalore", outDob: new Date(1994, 9, 5), outDos: new Date(2026, 5, 12, 17, 40, 0) }
-                ]
+                ],
+                SelectedRowPath: "",
+                SelectedRow: {}
             };
 
             var oModel = new JSONModel(oData);
             this.getView().setModel(oModel, "form");
             this._mDialogs = {};
+
         },
 
         onSubmit() {
@@ -152,11 +155,11 @@ sap.ui.define([
         onRoleValueHelpConfirm: function (oEvent) {
             var oSelectedItem = oEvent.getParameter("selectedItem");
             var oModel = this.getView().getModel("form");
- 
+
             if (oSelectedItem) {
                 var oContext = oSelectedItem.getBindingContext("form");
-                var sRoleName = oContext.getProperty("name"); 
-                
+                var sRoleName = oContext.getProperty("name");
+
                 if (this._sValueHelpTriggerId && this._sValueHelpTriggerId.includes("inInput3")) {
                     oModel.setProperty("/inRoleS", sRoleName);
                 } else {
@@ -164,6 +167,13 @@ sap.ui.define([
                 }
             }
             oEvent.getSource().getBinding("items").filter([]);
+        },
+        onAddAddress: function () {
+            var oModel = this.getView().getModel("form");
+            var aAddresses = oModel.getProperty("/inaddresses");
+
+            aAddresses.push({ value: "" });
+            oModel.setProperty("/inaddresses", aAddresses);
         },
 
         onRemoveAddress: function (oEvent) {
@@ -306,9 +316,98 @@ sap.ui.define([
             });
         },
 
+        onRowPress: function (oEvent) {
+            var oItem = oEvent.getParameter("listItem");
+            var oModel = this.getView().getModel("form");
+
+            this._sCurrentRowPath = oItem.getBindingContext("form").getPath();
+
+            var oClickedRowData = JSON.parse(JSON.stringify(oModel.getProperty(this._sCurrentRowPath)));
+            oModel.setProperty("/SelectedRow", oClickedRowData);
+
+            this.getView().byId("edit").setVisible(true);
+            this.getView().byId("save").setVisible(false);
+            this.getView().byId("cancel").setVisible(false);
+
+            var aInputIds = ["_IDGenText24", "_IDGenText19", "_IDGenText20", "_IDGenText22", "_IDGenText21", "_IDGenTextArea2", "_IDGenText25", "_IDGenText26"];
+            aInputIds.forEach(function (sId) {
+                var oControl = this.getView().byId(sId);
+                if (oControl) { oControl.setEditable(false); }
+            }.bind(this));
+
+            var oNavContainer = this.getView().byId("navCon");
+            oNavContainer.to(this.getView().byId("page2"), "slide");
+        },
+
+        onNavBackToForm: function () {
+            var oNavContainer = this.getView().byId("navCon");
+            oNavContainer.to(this.getView().byId("page1"), "show");
+        },
+
+        handleEditPress: function () {
+            this.getView().byId("edit").setVisible(false);
+            this.getView().byId("save").setVisible(true);
+            this.getView().byId("cancel").setVisible(true);
+
+            var aInputIds = ["_IDGenText24", "_IDGenText19", "_IDGenText20", "_IDGenText22", "_IDGenText21", "_IDGenTextArea2", "_IDGenText25", "_IDGenText26"];
+            aInputIds.forEach(function (sId) {
+                var oControl = this.getView().byId(sId);
+                if (oControl) { oControl.setEditable(true); }
+            }.bind(this));
+        },
+
+        handleSavePress: function () {
+            var oModel = this.getView().getModel("form");
+            var oEditedRow = oModel.getProperty("/SelectedRow");
+
+            if (!oEditedRow.outName || !oEditedRow.outEmail) {
+                MessageToast.show("Name and Email are mandatory fields!");
+                return;
+            }
+
+            if (oEditedRow.outAge) {
+                oEditedRow.outAge = parseInt(oEditedRow.outAge, 10);
+            }
+
+            oModel.setProperty(this._sCurrentRowPath, oEditedRow);
+
+            this.getView().byId("edit").setVisible(true);
+            this.getView().byId("save").setVisible(false);
+            this.getView().byId("cancel").setVisible(false);
+
+            var aInputIds = ["_IDGenText24", "_IDGenText19", "_IDGenText20", "_IDGenText22", "_IDGenText21", "_IDGenTextArea2", "_IDGenText25", "_IDGenText26"];
+            aInputIds.forEach(function (sId) {
+                var oControl = this.getView().byId(sId);
+                if (oControl) { oControl.setEditable(false); }
+            }.bind(this));
+
+            MessageToast.show("Changes saved successfully!");
+        },
+
+        handleCancelPress: function () {
+            var oModel = this.getView().getModel("form");
+
+            var oOriginalRowData = JSON.parse(JSON.stringify(oModel.getProperty(this._sCurrentRowPath)));
+            oModel.setProperty("/SelectedRow", oOriginalRowData);
+
+            this.getView().byId("edit").setVisible(true);
+            this.getView().byId("save").setVisible(false);
+            this.getView().byId("cancel").setVisible(false);
+
+            var aInputIds = ["_IDGenText24", "_IDGenText19", "_IDGenText20", "_IDGenText22", "_IDGenText21", "_IDGenTextArea2", "_IDGenText25", "_IDGenText26"];
+            aInputIds.forEach(function (sId) {
+                var oControl = this.getView().byId(sId);
+                if (oControl) { oControl.setEditable(false); }
+            }.bind(this));
+
+            MessageToast.show("Editing canceled.");
+        },
+
         handleOpenDialog: function () { this._openDialog("Dialog"); },
         handleOpenDialogFilter: function () { this._openDialog("Dialog", "filter"); },
         handleOpenDialogFilterPreselected: function () { this._openDialog("DialogPreselected", "filter"); },
         handleOpenDialogPresetFilterItems: function () { this._openDialog("DialogPreset", "filter", this._presetFiltersInit); }
     });
 });
+
+
