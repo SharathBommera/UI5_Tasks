@@ -42,12 +42,12 @@
                                     <Input id="_IDGenInput1" value="{form>/inNameS}" />
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem3" name="Age" label="Age" groupName="FormGroup" visibleInFilterBar="true">
+                            <fb:FilterGroupItem id="_IDGenFilterGroupItem3" name="Age" label="Age" groupName="FormGroup" visibleInFilterBar="true" visible="false">
                                 <fb:control>
                                     <Input id="_IDGenInput2" value="{form>/inAgeS}" type="Number" />
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem4" name="Role" label="Role" groupName="FormGroup" visibleInFilterBar="true">
+                            <fb:FilterGroupItem id="_IDGenFilterGroupItem4" name="Role" label="Role" groupName="FormGroup" visibleInFilterBar="true" visible="false">
                                 <fb:control>
                                     <Input id="_IDGenInput3" value="{form>/inRoleS}" showValueHelp="true" valueHelpRequest=".handleValueHelp" />
                                 </fb:control>
@@ -57,17 +57,17 @@
                                     <Input id="_IDGenInput4" value="{form>/inEmailS}" />
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem6" name="Address" label="Address" groupName="FormGroup" visibleInFilterBar="true">
+                            <fb:FilterGroupItem id="_IDGenFilterGroupItem6" name="Address" label="Address" groupName="FormGroup" visibleInFilterBar="true" visible="false">
                                 <fb:control>
                                     <Input id="_IDGenInput9" value="{form>/inAdressS}" />
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem7" name="Date of Birth" label="Date of Birth" groupName="FormGroup" visibleInFilterBar="true">
+                            <fb:FilterGroupItem id="_IDGenFilterGroupItem7" name="Date of Birth" label="Date of Birth" groupName="FormGroup" visibleInFilterBar="true" visible="false">
                                 <fb:control>
                                     <DatePicker id="_IDGenDatePicker_DobS" value="{path: 'form>/inDobS', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd-MMM-yyyy'}}" displayFormat="dd-MMM-yyyy" />
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem8" name="Date of Submission" label="Date of Submission" groupName="FormGroup" visibleInFilterBar="true">
+                            <fb:FilterGroupItem id="_IDGenFilterGroupItem8" name="Date of Submission" label="Date of Submission" groupName="FormGroup" visibleInFilterBar="true" visible="false">
                                 <fb:control>
                                     <DateTimePicker id="_IDGenDatePicker_DosS" value="{path: 'form>/inDosS', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd/MM/yyyy HH:mm:ss'}}" displayFormat="dd/MM/yyyy HH:mm:ss" />
                                 </fb:control>
@@ -105,7 +105,7 @@
                         <Column id="_IDGenColumn4" visible="false">
                             <Text id="_IDGenText5" text="Role" />
                         </Column>
-                        <Column id="_IDGenColumn5" visible="false">
+                        <Column id="_IDGenColumn5">
                             <Text id="_IDGenText6" text="Email" />
                         </Column>
                         <Column id="_IDGenColumn6" visible="false">

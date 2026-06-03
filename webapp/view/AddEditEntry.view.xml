@@ -14,10 +14,9 @@
 
         <content>
             <VBox id="_IDGenVBox" class="sapUiContentPadding">
-                <form:SimpleForm id="_IDGenSimpleFormUnified" width="100%" layout="ResponsiveGridLayout" editable="{= ${form>/isCreateMode} || ${form>/isEditMode} }" columnsL="2" columnsM="2" labelSpanL="4" labelSpanM="4" emptySpanL="0" emptySpanM="0">
+                <form:SimpleForm id="_IDGenSimpleFormUnified" width="100%" layout="ResponsiveGridLayout" editable="{= ${form>/isCreateMode} || ${form>/isEditMode} }">
+                <!-- columnsL="2" columnsM="2" labelSpanL="4" labelSpanM="4" emptySpanL="0" emptySpanM="0" breakpointL="1024" breakpointM="600"> -->
                     <form:content>
-                        <core:Title id="_IDGenTitle1"/>
-
                         <Label id="_IDGenLabel" text="ID" visible="{= !${form>/isCreateMode} }" />
                         <Text id="_IDGenText18" text="{form>/SelectedRow/outId}" visible="{= !${form>/isCreateMode} }" />
 
@@ -30,7 +29,6 @@
                         <Label id="_IDGenLabel3" text="Role"/>
                         <Input id="F-RoleAddEdit" value="{form>/SelectedRow/outRole}" showValueHelp="{= ${form>/isCreateMode} || ${form>/isEditMode} }" valueHelpRequest=".handleValueHelp" editable="{= ${form>/isCreateMode} || ${form>/isEditMode} }"/>
 
-
                         <Label id="_IDGenLabel4" text="Specify New Role" visible="{= ${form>/SelectedRow/outRole} === 'Others' }" />
                         <Input id="_IDGenInput7" value="{form>/SelectedRow/outRoleCustom}" visible="{= ${form>/SelectedRow/outRole} === 'Others' }" editable="{= ${form>/isCreateMode} || ${form>/isEditMode} }"/>
 
@@ -40,7 +38,7 @@
                             <core:Item id="_IDGenItem3" key="Fail" text="Fail" />
                         </Select>
 
-                        <core:Title id="_IDGenTitle2" />
+                        <core:Title id="_IDGenTitle1"/>
 
                         <Label id="_IDGenLabel6" required="true" text="Email"/>
                         <Input id="_IDGenInput8" value="{form>/SelectedRow/outEmail}" maxLength="30" type="Email" editable="{= ${form>/isCreateMode} || ${form>/isEditMode} }"/>

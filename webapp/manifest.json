@@ -83,8 +83,7 @@
         "type": "View",
         "viewType": "XML",
         "path": "fi18n.form.view",
-        "async": true,
-        "viewPath": "fi18n.form.view"
+        "async": true
       },
       "routes": [
         {
