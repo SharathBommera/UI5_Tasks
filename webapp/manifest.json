@@ -89,9 +89,23 @@
       "routes": [
         {
           "name": "Routeform",
-          "pattern": ":?query:",
+          "pattern": "",
           "target": [
             "Targetform"
+          ]
+        },
+        {
+          "name": "RouteAdd",
+          "pattern": "add",
+          "target": [
+            "TargetAddEdit"
+          ]
+        },
+        {
+          "name": "RouteEdit",
+          "pattern": "edit/{rowIndex}",
+          "target": [
+            "TargetAddEdit"
           ]
         }
       ],
@@ -99,6 +113,10 @@
         "Targetform": {
           "id": "form",
           "name": "form"
+        },
+        "TargetAddEdit": {
+          "id": "AddEditEntry",
+          "name": "AddEditEntry"
         }
       }
     },

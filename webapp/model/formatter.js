@@ -20,7 +20,7 @@ sap.ui.define([
                 return "";
             }
             var oDateTimeInstance = DateFormat.getDateTimeInstance({
-                pattern: "dd/MM/yyyy, HH:mm:ss"
+                pattern: "dd/MM/yyyy HH:mm:ss"
             });
             return oDateTimeInstance.format(new Date(oDate));
         }
