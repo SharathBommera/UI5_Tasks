@@ -9,6 +9,8 @@
     xmlns:fb="sap.ui.comp.filterbar"
     xmlns:svm="sap.ui.comp.smartvariants" core:require="{formatter: 'fi18n/form/model/formatter'}">
 
+    <VBox id="_IDGenVBox4"></VBox>
+    
     <f:DynamicPage id="page1">
         <f:title>
             <f:DynamicPageTitle id="_IDGenDynamicPageTitle1">
@@ -21,7 +23,7 @@
         <f:header>
             <f:DynamicPageHeader id="_IDGenDynamicPageHeader">
                 <f:content>
-                    <fb:FilterBar id="filterbar" persistencyKey="myPersKey" search=".onSearchTop" useToolbar="false">
+                    <fb:FilterBar id="filterbar" persistencyKey="myPersKey" search=".onSearchTop" useToolbar="false" showClearOnFB="true">
                         <fb:filterGroupItems>
                             <fb:FilterGroupItem id="_IDGenFilterGroupItem" name="Result" label="Result" groupName="FormGroup" visibleInFilterBar="true">
                                 <fb:control>
@@ -37,7 +39,7 @@
                                     <Input id="_IDGenInput" value="{form>/inIdS}" type="Number" />
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem2" name="Name" label="Name" groupName="FormGroup" visibleInFilterBar="true">
+                            <fb:FilterGroupItem id="_IDGenFilterGroupItem2" name="Name" label="Name" groupName="FormGroup" visibleInFilterBar="true" visible="false">
                                 <fb:control>
                                     <Input id="_IDGenInput1" value="{form>/inNameS}" />
                                 </fb:control>
@@ -64,12 +66,12 @@
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem id="_IDGenFilterGroupItem7" name="Date of Birth" label="Date of Birth" groupName="FormGroup" visibleInFilterBar="true" visible="false">
                                 <fb:control>
-                                    <DatePicker id="_IDGenDatePicker_DobS" value="{path: 'form>/inDobS', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd-MMM-yyyy'}}" displayFormat="dd-MMM-yyyy" />
+                                    <DatePicker id="_IDGenDatePicker_DobS" value="{path: 'form>/inDobS', type: 'sap.ui.model.type.Date'}" displayFormat="dd-MMM-yyyy" />
                                 </fb:control>
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem id="_IDGenFilterGroupItem8" name="Date of Submission" label="Date of Submission" groupName="FormGroup" visibleInFilterBar="true" visible="false">
                                 <fb:control>
-                                    <DateTimePicker id="_IDGenDatePicker_DosS" value="{path: 'form>/inDosS', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd/MM/yyyy HH:mm:ss'}}" displayFormat="dd/MM/yyyy HH:mm:ss" />
+                                    <DateTimePicker id="_IDGenDatePicker_DosS" value="{path: 'form>/inDosS', type: 'sap.ui.model.type.DateTime'}" displayFormat="dd/MM/yyyy HH:mm:ss" />
                                 </fb:control>
                             </fb:FilterGroupItem>
                         </fb:filterGroupItems>

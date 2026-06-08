@@ -14,6 +14,20 @@ sap.ui.define([
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.getRoute("RouteAdd").attachPatternMatched(this._onRouteAddMatched, this);
             oRouter.getRoute("RouteEdit").attachPatternMatched(this._onRouteEditMatched, this);
+
+            var oView = this.getView();
+
+            Fragment.load({
+                id: oView.getId(),
+                name: "fi18n.form.view.Message",
+                controller: this
+            }).then(function (oFragment) {
+                oView.addDependent(oFragment);
+                var oMessageContainer = oView.byId("_IDGenVBox5");
+                if (oMessageContainer) {
+                    oMessageContainer.addItem(oFragment);
+                }
+            });
         },
 
         _onRouteAddMatched: function () {
@@ -28,9 +42,14 @@ sap.ui.define([
         },
 
         _onRouteEditMatched: function (oEvent) {
-            var sIndex = oEvent.getParameter("arguments").rowIndex;
+            var sId = oEvent.getParameter("arguments").rowIndex;
             var oModel = this.getOwnerComponent().getModel("form");
-            this._sCurrentRowPath = "/Table/" + sIndex;
+            var aTable = oModel.getProperty("/Table");
+            var iIndex = aTable.findIndex(function (r) {
+                return String(r.outId) === String(sId);
+            });
+
+            this._sCurrentRowPath = "/Table/" + iIndex;
 
             oModel.setProperty("/isCreateMode", false);
             oModel.setProperty("/isEditMode", false);

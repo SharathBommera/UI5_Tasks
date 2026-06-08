@@ -5,8 +5,9 @@ sap.ui.define([
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/model/Sorter",
-    "sap/ui/core/Fragment"
-], (Controller, JSONModel, MessageToast, Filter, FilterOperator, Sorter, Fragment) => {
+    "sap/ui/core/Fragment",
+    "sap/m/MessageStrip"
+], (Controller, JSONModel, MessageToast, Filter, FilterOperator, Sorter, Fragment, MessageStrip) => {
     "use strict";
 
     return Controller.extend("fi18n.form.controller.form", {
@@ -35,7 +36,7 @@ sap.ui.define([
                     { key: "DEV", name: "Developer" },
                     { key: "MGR", name: "Manager" },
                     { key: "QA", name: "Quality Analyst" },
-                    { key: "UX", name: "UX/UI Designer" },
+                    { key: "UX", name: "UI Designer" },
                     { key: "HR", name: "HR Specialist" },
                     { key: "OTH", name: "Others" }
                 ],
@@ -43,12 +44,12 @@ sap.ui.define([
                     { outResult: "Pass", outId: 1, outName: "Arjun Reddy", outAge: 24, outRole: "Developer", outEmail: "arjun.r@test.com", outAddress: "Hitech City\nHyderabad", outDob: new Date(1999, 10, 15), outDos: new Date(2026, 0, 10, 10, 30, 0) },
                     { outResult: "Fail", outId: 2, outName: "Sarah Connor", outAge: 35, outRole: "Manager", outEmail: "s.connor@test.com", outAddress: "404 Tech Lane\nBangalore", outDob: new Date(1989, 4, 12), outDos: new Date(2026, 1, 14, 14, 45, 0) },
                     { outResult: "Pass", outId: 3, outName: "Vikram Singh", outAge: 28, outRole: "Quality Analyst", outEmail: "vik.singh@test.com", outAddress: "Gachibowli\nHyderabad", outDob: new Date(1996, 2, 8), outDos: new Date(2026, 2, 2, 9, 15, 0) },
-                    { outResult: "Pass", outId: 4, outName: "Emily Davis", outAge: 30, outRole: "UX/UI Designer", outEmail: "emily.davis@test.com", outAddress: "123 Design Street\nBangalore", outDob: new Date(1994, 6, 20), outDos: new Date(2026, 3, 18, 16, 0, 0) },
+                    { outResult: "Pass", outId: 4, outName: "Emily Davis", outAge: 30, outRole: "UI Designer", outEmail: "emily.davis@test.com", outAddress: "123 Design Street\nBangalore", outDob: new Date(1994, 6, 20), outDos: new Date(2026, 3, 18, 16, 0, 0) },
                     { outResult: "Fail", outId: 5, outName: "Michael Brown", outAge: 40, outRole: "HR Specialist", outEmail: "m.brown@test.com", outAddress: "505 HR Avenue\nBangalore", outDob: new Date(1984, 9, 5), outDos: new Date(2026, 4, 25, 11, 30, 0) },
                     { outResult: "Pass", outId: 6, outName: "Ananya Sharma", outAge: 26, outRole: "Developer", outEmail: "ananya.sharma@test.com", outAddress: "789 Innovation Blvd\nBangalore", outDob: new Date(1996, 5, 10), outDos: new Date(2026, 5, 15, 13, 45, 0) },
                     { outResult: "Fail", outId: 7, outName: "David Wilson", outAge: 32, outRole: "Manager", outEmail: "d.wilson@test.com", outAddress: "101 Management St\nBangalore", outDob: new Date(1992, 7, 18), outDos: new Date(2026, 6, 30, 15, 20, 0) },
                     { outResult: "Pass", outId: 8, outName: "Priya Patel", outAge: 29, outRole: "Quality Analyst", outEmail: "priya.patel@test.com", outAddress: "321 Quality Ave\nBangalore", outDob: new Date(1993, 1, 25), outDos: new Date(2026, 7, 12, 12, 15, 0) },
-                    { outResult: "Pass", outId: 9, outName: "Rohan Mehta", outAge: 27, outRole: "UX/UI Designer", outEmail: "rohan.mehta@test.com", outAddress: "654 Design Street\nHyderabad", outDob: new Date(1997, 3, 5), outDos: new Date(2026, 8, 20, 14, 0, 0) },
+                    { outResult: "Pass", outId: 9, outName: "Rohan Mehta", outAge: 27, outRole: "UI Designer", outEmail: "rohan.mehta@test.com", outAddress: "654 Design Street\nHyderabad", outDob: new Date(1997, 3, 5), outDos: new Date(2026, 8, 20, 14, 0, 0) },
                     { outResult: "Fail", outId: 10, outName: "Sara Lee", outAge: 31, outRole: "HR Specialist", outEmail: "sara.lee@test.com", outAddress: "505 HR Avenue\nBangalore", outDob: new Date(1993, 8, 15), outDos: new Date(2026, 9, 5, 10, 30, 0) }
                 ],
                 SelectedRow: {
@@ -64,19 +65,42 @@ sap.ui.define([
                 oComponent.setModel(oModel, "form");
             }
             this._mDialogs = {};
+
+            var oView = this.getView();
+
+            Fragment.load({
+                id: oView.getId(),
+                name: "fi18n.form.view.Message",
+                controller: this
+            }).then(function (oFragment) {
+                oView.addDependent(oFragment);
+                var oMessageContainer = oView.byId("_IDGenVBox4");
+                if (oMessageContainer) {
+                    oMessageContainer.addItem(oFragment);
+                }
+            });
         },
 
         onAddNavPress: function () {
-            this.getOwnerComponent().getRouter().navTo("RouteAdd");
+            var oTable = this.getView().byId("dataTable");
+            var oBinding = oTable.getBinding("items");
+            var tableLength = oBinding.getLength();
+
+            this.getOwnerComponent().getRouter().navTo("RouteAdd", {
+                rowIndex: tableLength + 1
+            });
         },
 
         onRowPress: function (oEvent) {
             var oItem = oEvent.getParameter("listItem");
-            var sRowPath = oItem.getBindingContext("form").getPath();
-            var sIndex = sRowPath.split("/").pop(); 
+            var oBindCon = oItem.getBindingContext("form");
+            var sId = oBindCon.getProperty("outId");
 
             this.getOwnerComponent().getRouter().navTo("RouteEdit", {
-                rowIndex: sIndex
+                rowIndex: sId,
+                "?query": {
+                    role: oBindCon.getProperty("outRole")
+                }
             });
         },
 
@@ -207,6 +231,7 @@ sap.ui.define([
             this._mDialogs[sName].then(function (oDialog) { oDialog.open(sPage); });
         },
 
-        handleOpenDialog: function () { this._openDialog("Dialog"); }
+        handleOpenDialog: function () { this._openDialog("Dialog"); },
+
     });
 });

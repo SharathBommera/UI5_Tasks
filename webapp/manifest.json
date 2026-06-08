@@ -58,6 +58,7 @@
       "fullWidth": true,
       "sample": {
         "files": [
+          "App.view.xml",
           "form.view.xml",
           "controller/form.controller.js",
           "view/Dialog.fragment.xml",
@@ -95,18 +96,18 @@
         },
         {
           "name": "RouteAdd",
-          "pattern": "add",
+          "pattern": "add/{rowIndex}",
           "target": [
             "TargetAddEdit"
           ]
         },
         {
           "name": "RouteEdit",
-          "pattern": "edit/{rowIndex}",
+          "pattern": "edit/{rowIndex}/{?query}",
           "target": [
             "TargetAddEdit"
           ]
-        }
+        } 
       ],
       "targets": {
         "Targetform": {

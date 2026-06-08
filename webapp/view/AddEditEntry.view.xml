@@ -4,6 +4,8 @@
     xmlns:core="sap.ui.core"
     xmlns="sap.m" height="100%">
 
+    <VBox id="_IDGenVBox5"></VBox>
+
     <Page id="addEditPage" title="{= ${form>/isCreateMode} ? 'Create New Record' : 'Person Details' }" showNavButton="true" navButtonPress=".onNavBack">
 
         <headerContent>
@@ -17,6 +19,7 @@
                 <form:SimpleForm id="_IDGenSimpleFormUnified" width="100%" layout="ResponsiveGridLayout" editable="{= ${form>/isCreateMode} || ${form>/isEditMode} }">
                 <!-- columnsL="2" columnsM="2" labelSpanL="4" labelSpanM="4" emptySpanL="0" emptySpanM="0" breakpointL="1024" breakpointM="600"> -->
                     <form:content>
+                    <core:Title id="_IDGenTitle1"/>
                         <Label id="_IDGenLabel" text="ID" visible="{= !${form>/isCreateMode} }" />
                         <Text id="_IDGenText18" text="{form>/SelectedRow/outId}" visible="{= !${form>/isCreateMode} }" />
 
@@ -38,7 +41,7 @@
                             <core:Item id="_IDGenItem3" key="Fail" text="Fail" />
                         </Select>
 
-                        <core:Title id="_IDGenTitle1"/>
+                        <core:Title id="_IDGenTitle2"/>
 
                         <Label id="_IDGenLabel6" required="true" text="Email"/>
                         <Input id="_IDGenInput8" value="{form>/SelectedRow/outEmail}" maxLength="30" type="Email" editable="{= ${form>/isCreateMode} || ${form>/isEditMode} }"/>
