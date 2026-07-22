@@ -70,7 +70,7 @@ sap.ui.define([
 
             Fragment.load({
                 id: oView.getId(),
-                name: "fi18n.form.view.Message",
+                name: "fi18n.form.fragment.Message",
                 controller: this
             }).then(function (oFragment) {
                 oView.addDependent(oFragment);
@@ -109,7 +109,7 @@ sap.ui.define([
             if (!this._oRoleValueHelpDialog) {
                 Fragment.load({
                     id: oView.getId(),
-                    name: "fi18n.form.view.RoleValueHelp",
+                    name: "fi18n.form.fragment.RoleValueHelp",
                     controller: this
                 }).then(function (oDialog) {
                     this._oRoleValueHelpDialog = oDialog;
@@ -220,7 +220,7 @@ sap.ui.define([
             if (!this._mDialogs[sName]) {
                 this._mDialogs[sName] = Fragment.load({
                     id: oView.getId(),
-                    name: "fi18n.form.view." + sName,
+                    name: "fi18n.form.fragment." + sName,
                     controller: this
                 }).then(function (oDialog) {
                     oView.addDependent(oDialog);

@@ -23,7 +23,7 @@
         <f:header>
             <f:DynamicPageHeader id="_IDGenDynamicPageHeader">
                 <f:content>
-                    <fb:FilterBar id="filterbar" persistencyKey="myPersKey" search=".onSearchTop" useToolbar="false" showClearOnFB="true">
+                    <fb:FilterBar id="filterbar" persistencyKey="myPersKey" search=".onSearchTop" useToolbar="false">
                         <fb:filterGroupItems>
                             <fb:FilterGroupItem id="_IDGenFilterGroupItem" name="Result" label="Result" groupName="FormGroup" visibleInFilterBar="true">
                                 <fb:control>
